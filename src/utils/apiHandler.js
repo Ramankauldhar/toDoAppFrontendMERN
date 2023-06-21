@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5656";
+const baseUrl = "https://todoappbackend-hlgr.onrender.com";
 const getTodoList = (setTodoList) => {
   axios.get(baseUrl).then(({ data }) => {
     console.log("Data fetched successfully!", data);

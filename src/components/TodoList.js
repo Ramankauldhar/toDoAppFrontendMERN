@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 
 const TodoList = ({ task, desc, dateAndTime, updateMode, deleteTask }) => {
+  const [selectedOption, setSelectedOption] = useState("");
   return (
     <div className="todoData">
       <div className="icons">
+        <span>Pending</span>
         <BiEdit className="icon" onClick={updateMode} />
         <AiFillDelete className="icon" onClick={deleteTask} />
       </div>
