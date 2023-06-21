@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
-import { getTodoList, addTask } from "./utils/apiHandler";
+import { getTodoList, addTask, updateTask } from "./utils/apiHandler";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -8,9 +8,20 @@ function App() {
   const [desc, setDesc] = useState("");
   const [dateAndTime, setDeadline] = useState("");
 
+  const [isUpdating, setUpdating] = useState(false);
+  const [taskId, setTaskId] = useState("");
+
   useEffect(() => {
     getTodoList(setTodoList);
   }, []);
+
+  const updateMode = (_id, task, desc, dateAndTime) => {
+    setUpdating(true);
+    setTask(task);
+    setDesc(desc);
+    setDeadline(dateAndTime);
+    setTaskId(_id);
+  };
 
   return (
     <div className="app">
@@ -45,19 +56,33 @@ function App() {
           <br />
           <div
             className="add"
-            onClick={() =>
-              addTask(
-                task,
-                desc,
-                dateAndTime,
-                setTask,
-                setDesc,
-                setDeadline,
-                setTodoList
-              )
+            onClick={
+              isUpdating
+                ? () =>
+                    updateTask(
+                      taskId,
+                      task,
+                      desc,
+                      dateAndTime,
+                      setTodoList,
+                      setTask,
+                      setDesc,
+                      setDeadline,
+                      setUpdating
+                    )
+                : () =>
+                    addTask(
+                      task,
+                      desc,
+                      dateAndTime,
+                      setTask,
+                      setDesc,
+                      setDeadline,
+                      setTodoList
+                    )
             }
           >
-            Add
+            {isUpdating ? "Update" : "Add"}
           </div>
         </div>
         <br />
@@ -67,11 +92,15 @@ function App() {
           <h2>Todo List</h2>
           <div className="list">
             {todoList.map((item, index) => (
-              <div className="item-wrapper" key={item._id}>
+              <div className="item-wrapper">
                 <TodoList
+                  key={item._id}
                   task={"Task: " + item.task}
                   desc={"Description: " + item.desc}
                   dateAndTime={"Deadline: " + item.dateAndTime}
+                  updateMode={() =>
+                    updateMode(item._id, item.task, item.desc, item.dateAndTime)
+                  }
                 />
               </div>
             ))}

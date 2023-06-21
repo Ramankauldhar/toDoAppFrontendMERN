@@ -20,11 +20,34 @@ const addTask = (
   axios
     .post(`${baseUrl}/saveTask`, { task, desc, dateAndTime })
     .then((data) => {
-      console.log(data);
       setTask("");
       setDesc("");
       setDeadline("");
       getTodoList(setTodoList);
-    });
+    })
+    .catch((err) => console.log(err));
 };
-export { getTodoList, addTask };
+
+const updateTask = (
+  taskId,
+  task,
+  desc,
+  dateAndTime,
+  setTodoList,
+  setTask,
+  setDesc,
+  setDeadline,
+  setUpdating
+) => {
+  axios
+    .post(`${baseUrl}/updateTask`, { _id: taskId, task, desc, dateAndTime })
+    .then((data) => {
+      setTask("");
+      setDesc("");
+      setDeadline("");
+      setUpdating(false);
+      getTodoList(setTodoList);
+    })
+    .catch((err) => console.log(err));
+};
+export { getTodoList, addTask, updateTask };

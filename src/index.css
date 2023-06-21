@@ -62,7 +62,7 @@ input{
 }
 .todoData{
   margin-top: 1rem;
-  background-color: rgb(243, 137, 62);
+  background-color: rgb(241, 229, 219);
   color: black;
   padding: 5px;
   border-radius: 5px;
@@ -78,7 +78,9 @@ input{
   padding:2px;
   margin:2px;
 }
-
+.dateAndTime{
+  color: red;
+}
 .icons{
   text-align: right;
   align-items: center;
