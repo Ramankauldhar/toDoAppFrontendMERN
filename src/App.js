@@ -1,18 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import TodoList from "./components/TodoList";
+import { getTodoList, addTask } from "./utils/apiHandler";
 
 function App() {
+  const [todoList, setTodoList] = useState([]);
+  const [task, setTask] = useState("");
+  const [desc, setDesc] = useState("");
+  const [dateAndTime, setDeadline] = useState("");
+
+  useEffect(() => {
+    getTodoList(setTodoList);
+  }, []);
+
   return (
     <div className="app">
       <div className="container">
-        <h1>Todo App</h1>
         <div className="header">
+          <h1>Todo App</h1>
           <label>Task:</label>
-          <input type="text" placeholder="Write task here" />
+          <br />
+          <input
+            type="text"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+            placeholder="Write task here"
+          />
+          <br />
           <label>Description:</label>
-          <input type="text" placeholder="Write description of the task" />
-          <label>Date and Time:</label>
-          <input type="datetime-local" />
-          <div className="add">Add</div>
+          <br />
+          <input
+            type="text"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Write description of the task"
+          />
+          <br />
+          <label>Deadline:</label>
+          <br />
+          <input
+            type="datetime-local"
+            value={dateAndTime}
+            onChange={(e) => setDeadline(e.target.value)}
+          />
+          <br />
+          <div
+            className="add"
+            onClick={() =>
+              addTask(
+                task,
+                desc,
+                dateAndTime,
+                setTask,
+                setDesc,
+                setDeadline,
+                setTodoList
+              )
+            }
+          >
+            Add
+          </div>
+        </div>
+        <br />
+        <hr />
+        <hr />
+        <div>
+          <h2>Todo List</h2>
+          <div className="list">
+            {todoList.map((item, index) => (
+              <div className="item-wrapper" key={item._id}>
+                <TodoList
+                  task={"Task: " + item.task}
+                  desc={"Description: " + item.desc}
+                  dateAndTime={"Deadline: " + item.dateAndTime}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
