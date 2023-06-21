@@ -37,7 +37,10 @@ h1{
   margin: 10px;
   display:block;
   justify-content: center;
-  width:50%;
+  width:30%;
+}
+.subPart{
+  width:70%;
 }
 .add{
   background-color: black;

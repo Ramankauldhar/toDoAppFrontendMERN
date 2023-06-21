@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
-import { getTodoList, addTask, updateTask } from "./utils/apiHandler";
+import {
+  getTodoList,
+  addTask,
+  updateTask,
+  deleteTask,
+} from "./utils/apiHandler";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -88,7 +93,7 @@ function App() {
         <br />
         <hr />
         <hr />
-        <div>
+        <div className="subPart">
           <h2>Todo List</h2>
           <div className="list">
             {todoList.map((item, index) => (
@@ -101,6 +106,7 @@ function App() {
                   updateMode={() =>
                     updateMode(item._id, item.task, item.desc, item.dateAndTime)
                   }
+                  deleteTask={() => deleteTask(item._id, setTodoList)}
                 />
               </div>
             ))}

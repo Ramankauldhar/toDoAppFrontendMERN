@@ -50,4 +50,12 @@ const updateTask = (
     })
     .catch((err) => console.log(err));
 };
-export { getTodoList, addTask, updateTask };
+const deleteTask = (_id, setTodoList) => {
+  axios
+    .post(`${baseUrl}/deleteTask`, { _id })
+    .then((data) => {
+      getTodoList(setTodoList);
+    })
+    .catch((err) => console.log(err));
+};
+export { getTodoList, addTask, updateTask, deleteTask };
