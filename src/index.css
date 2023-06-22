@@ -80,6 +80,9 @@ input{
   color: white;
   padding:2px;
   margin:2px;
+  animation-name: example;
+  animation-duration: 40s;
+  animation-iteration-count: infinite;
 }
 .dateAndTime{
   color: red;
@@ -115,6 +118,16 @@ h2{
 }
 span{
   color: Red;
+}
+
+@keyframes example {
+  from {
+    background-color: black;
+  }
+
+  to {
+    background-color: orangered;
+  }
 }
 
 @media screen and (max-width:1200px) {
